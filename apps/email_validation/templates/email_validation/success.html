@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Success</title>
+</head>
+<body>
+<h3> The email address you entered {{email_add}} is a VALID email address! Thank you! </h3>
+
+<h4> Email Addresses Entered: </h4>
+{% for email in emails %}
+<p>{{email.email_address}} {{email.date_added}}</p>
+{% endfor %}
+</body>
+</html>
