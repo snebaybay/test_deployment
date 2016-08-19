@@ -1,14 +1,14 @@
 from __future__ import unicode_literals
 from django.db import models
 import re , bcrypt
-import bcrypt
 EMAIL_REGEX = re.compile(r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$')
 NO_NUMBERS = re.compile(r'[a-zA-Z]')
+
 
 class UserManager(models.Manager): 
 	def validateReg(self, request):
 
-		errorList = []
+		errorList = [] #appending to this list
 		if len(request.POST['first_name']) < 2 or len(request.POST['last_name']) < 2:
 			errorList.append("The length of your first or last name needs to be more than 2 characters!") 
 		if not EMAIL_REGEX.match(request.POST['email']):
@@ -18,7 +18,7 @@ class UserManager(models.Manager):
 		if not NO_NUMBERS.match(request.POST['first_name']):
 			errorList.append("No numbers in your name")  
 		if not  NO_NUMBERS.match(request.POST['last_name']):
-			errorList.append("TNo numbers in your last name") 
+			errorList.append("No numbers in your last name") 
 
 		if len(errorList) > 0:
 			return (False, errorList)
@@ -44,5 +44,13 @@ class User(models.Model):
 	created_at = models.DateTimeField(auto_now_add = True)
 	updated_at = models.DateTimeField(auto_now = True)
 
+	userManager = UserManager()
+	objects = models.Manager()
+
+class Appointment(models.Model):
+	task_name = models.CharField(max_length=100, blank=True, null=True)
+	task_date = models.CharField(max_length=100)
+	task_time = models.CharField(max_length=100)
+	
 	userManager = UserManager()
 	objects = models.Manager()

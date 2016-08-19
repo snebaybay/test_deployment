@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Registration</title>
+</head>
+<body>
+<div>
+    <table>
+        <tr>
+          <th> Tasks</th>
+          <th> Status </th>
+          <th> Date </th>
+          <th> Time </th>
+        </tr>
+         {% for appoint in appointment %} 
+          <td> {{appoint.task_name}} </td>
+           <td>
+              <select class="" name="task_status">
+                <option value="pending">Pending</option>
+                <option value="done">Done</option>
+                <option value="missed">Missed</option>
+             </select> 
+           </td> 
+
+           <td> {{appoint.task_date}}  </td>
+           <td>{{appoint.task_time}}  </td>
+        </tr>
+        {% endfor %}
+      </table>
+      </div>
+      <form action='/appointment' method='POST'> {% csrf_token %}
+      <input type='submit' value='Update' name='update_task'>
+      </form>
+
+	
+</body>
+</html>

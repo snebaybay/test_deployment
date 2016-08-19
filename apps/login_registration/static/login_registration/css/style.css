@@ -1,0 +1,19 @@
+
+	h3, a {
+		display: inline-block;
+		vertical-align: top;
+	}
+
+	#logout{
+		margin-left: 200px;
+		margin-top: 10px;
+	}
+
+	h6{
+		font-weight: bold;
+		font-size: 14px;
+	}
+
+	#add_apt {
+		margin: 0px;
+	}

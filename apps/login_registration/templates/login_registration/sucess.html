@@ -1,12 +1,78 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <title>Success</title>
-  </head>
+
+	 {% load staticfiles %}
+	 <link rel="stylesheet" href="{% static 'login_registration/css/style.css' %}">
+  	<head>
+    	<meta charset="utf-8">
+    	<title>Success</title>
+  	</head>
   <body>
-    <h1>Welcome {{request.session.user.first_name}}! You've successfully logged in!</h1>
-   		<p> Successfully {{request.session.user.method}}</p>
-    <a href="/logout">Logout</a>
+	  <div>
+		    <h3>Hello {{request.session.user.first_name}}!</h3>
+		    <a id="logout" href="/logout">Logout</a>
+	  </div>
+
+	  <div>
+	       <h4> Here are your appointments for today, {{time}}.</h4>
+	     
+			<table>
+				<tr>
+					<th> Tasks</th>
+					<th> Time </th>
+					<th> Status </th>
+					<th> Actions </th>
+				</tr>
+				<tr> <p> {% for appoint in appointment %}
+					 <td> {{appoint.task_name}} </td> 
+					    <td> {{appoint.task_time}} </td> 
+			    	<td> <select class="" name="task_status">
+			          <option value="pending">Pending</option>
+			          <option value="done">Done</option>
+			          <option value="missed">Missed</option>
+			    	</select> </td>
+					<td> <a href="/{{appoint.id}}/delete"> Delete</a> <a href="/edit/{{appoint.id}}"> Edit </a> </td>
+				</p>
+				</tr>
+				{% endfor %}
+	   		</table>
+   		</div>
+
+   		<div>
+   		<h5> Your Other Appointments: </h5>
+			<table>
+				<tr>
+					<th> Tasks</th>
+					<th> Date </th>
+					<th> Time </th>
+				</tr>
+				<tr>{% for appoint in appointment %}
+					 <td> {{appoint.task_name}} </td> 
+					    <td> {{appoint.task_date}} </td>  
+					 <td>{{appoint.task_time}} </td> 
+				</tr>
+				{% endfor %}
+			</table>
+			</div>
+
+   		<div>
+   		<h6> Add an appointment! </h6> 
+          <form id="add_apt" action="/create" method="post"> {% csrf_token %}
+            <p> Date </p>
+            <input type = 'text' name = 'task_date'>
+            <p> Time </p>
+            <select name="task_time">
+		          <option value= "{{future_time}}" =>{{future_time}}</option> 
+		          <option value= "{{future_time}}"=>{{future_time}}</option>
+		          <option value= "{{future_time}}"=>{{future_time}}</option>
+		          <option value= "{{future_time}}"=>{{future_time}}</option>
+            	}
+		    </select>
+            <p> Task </p>
+            <p><input type= 'text' name = 'task_name'></p>
+            <p><input type = 'submit' value='Submit'></p>
+         </form>
+         </div>
+    
   </body>
 </html>

@@ -5,8 +5,10 @@ urlpatterns = [
     url(r'^$', views.index),
     url(r'^login$', views.login),
     url(r'^register$', views.register),
-    url(r'^success$', views.success),
+    url(r'^appointment$', views.success),
+    url(r'^create$', views.create),
+    url(r'^(?P<id>\d+)/delete$', views.delete),
+    url(r'^edit/(?P<id>\d+)$', views.edit),
     url(r'^logout$', views.logout)
-
 
 ]
